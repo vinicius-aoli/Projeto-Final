@@ -47,7 +47,7 @@ def menu_gerente(db_usuarios, db_perfis):
         print("[1]: Cadastrar novo aluno")
         print("[2]: Ver lista de alunos")
         print("[3]: Acessar ou gerar relatórios")
-        print("[0] Sair (Logout")
+        print("[0] Sair (Logout)")
      
         opcao = input("Escolha uma opção: ")
 
@@ -70,7 +70,4 @@ def menu_gerente(db_usuarios, db_perfis):
         
         else:
             print("Opção inválida.")
-
-     
-
-        
+            
