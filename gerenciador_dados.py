@@ -76,7 +76,8 @@ def registrar_presenca(id_aluno, tipo_evento):
 
     try:
         with open(arquivo_log, mode='a', encoding='utf-8', newline='') as f:
-            escritor_csv = csv.writerow([id_aluno, data_hora_atual, tipo_evento])
+            escritor_csv = csv.writer(f)
+            escritor_csv.writerow([id_aluno, data_hora_atual, tipo_evento])
 
             return True
         

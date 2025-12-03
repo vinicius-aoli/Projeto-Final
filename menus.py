@@ -12,7 +12,7 @@ def menu_aluno(id_aluno, login):
         print("[3]: Ver meu histórico")
         print("[0]: Sair (Logout)")
 
-        opcao = input("Escolha a opção desejada")
+        opcao = input("Escolha a opção desejada: ")
 
         if opcao == "1":
                 if gerenciador_dados.registrar_presenca(id_aluno, "entrada"):

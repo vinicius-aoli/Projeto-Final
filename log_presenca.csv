@@ -1,1 +1,5 @@
 id_aluno,data_hora,evento
+A001,03/12/2025 19:17:48,entrada
+A001,03/12/2025 19:17:49,saida
+A002,03/12/2025 19:18:19,entrada
+A002,03/12/2025 19:18:20,saida
