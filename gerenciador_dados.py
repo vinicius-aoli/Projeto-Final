@@ -59,3 +59,27 @@ def carregar_perfis(arquivo_csv):
     
     print(f"Sucesso: {len(db_perfis)} perfis de alunos foram carregados no sistema.")
     return db_perfis
+
+def registrar_presenca(id_aluno, tipo_evento):
+    """
+    Registra um evento (check-in ou check-out) no arquivo de log.
+    Recebe:
+        id_aluno(str): O ID do aluno
+        tipo_evento: 'entrada' ou 'saída''
+    Retorna:
+        True se salvou corretamente, False se deu erro.
+        """
+    arquivo_log = 'log_presenca.csv'
+
+    from datetime import datetime
+    data_hora_atual = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
+    try:
+        with open(arquivo_log, mode='a', encoding='utf-8', newline='') as f:
+            escritor_csv = csv.writerow([id_aluno, data_hora_atual, tipo_evento])
+
+            return True
+        
+    except Exception as e:
+        print(f"Erro ao salvar presença no arquivo: {e}")
+        return False

@@ -1,5 +1,6 @@
 import gerenciador_dados
 import autenticacao
+import menus
 
 def main():
     print("Iniciando o sistema...")
@@ -20,11 +21,13 @@ def main():
         perfil, id_aluno = autenticacao.fazer_login(db_usuarios, login, senha)
 
         if perfil == "Gerente":
-            print(f"\nBem-vindo, gerente {login}!")
-            break
+            print(f"\nBem-vindo, gerente {login}!") 
+            menus.menu_gerente(db_usuarios, db_perfis)
+
 
         elif perfil == "Aluno":
             print(f"\nBem-vindo, aluno {login}!")
+            menus.menu_aluno(id_aluno, login)
             break
 
         else:
