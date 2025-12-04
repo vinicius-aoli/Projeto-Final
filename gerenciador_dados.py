@@ -84,3 +84,4 @@ def registrar_presenca(id_aluno, tipo_evento):
     except Exception as e:
         print(f"Erro ao salvar presença no arquivo: {e}")
         return False
+    
