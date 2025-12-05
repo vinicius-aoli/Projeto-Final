@@ -14,10 +14,10 @@ def carregar_usuarios(arquivo_csv):
             next(leitor_csv)
 
             for linha in leitor_csv:
-                login = linha [0]
-                senha = linha[1]
-                perfil = linha [2]
-                id_aluno = linha [3]
+                login = linha [0].strip()
+                senha = linha[1].strip()
+                perfil = linha [2].strip()
+                id_aluno = linha [3].strip()
 
                 db_usuarios[login] = {
                     'senha': senha,
@@ -37,8 +37,8 @@ def carregar_usuarios(arquivo_csv):
 
 def carregar_perfis(arquivo_csv):
     """
-    Carrega o arquivo de perfis de alunos, retornando um dicionário
-    a chave é o id do aluno e o valor é um dicionário com nome e as informações correspondentes ao perfil.
+    Carrega o arquivo de perfis de alunos, retornando um dicionário.
+    A chave é o id do aluno e o valor é um dicionário as informações correspondentes ao perfil.
     """
     db_perfis = {}
 
@@ -47,7 +47,7 @@ def carregar_perfis(arquivo_csv):
             leitor_csv = csv.DictReader(f)
             
             for linha in leitor_csv:
-                id_aluno = linha ['id_aluno']
+                id_aluno = linha ['id_aluno'].strip()
                 db_perfis[id_aluno] = linha
 
     except FileNotFoundError:
@@ -78,9 +78,7 @@ def registrar_presenca(id_aluno, tipo_evento):
         with open(arquivo_log, mode='a', encoding='utf-8', newline='') as f:
             escritor_csv = csv.writer(f)
             escritor_csv.writerow([id_aluno, data_hora_atual, tipo_evento])
-
             return True
-        
     except Exception as e:
         print(f"Erro ao salvar presença no arquivo: {e}")
         return False
@@ -109,4 +107,41 @@ def verificar_status_aluno(id_aluno):
 
     return ultimo_evento
 
+def gerar_proximo_id(db_perfis):
+    """
+    Gera automaticamente o próximo ID_Aluno baseado nos já existentes.
+    Retorna: Próximo ID de aluno com base no último registrado.
+    """
+    if not db_perfis:
+        return "A001"
+    
+    maior_id = 0
 
+    for id in db_perfis.keys():
+        try:
+            numero = int(id[1:])
+            if numero > maior_id:
+                maior_id = numero
+        except ValueError:
+            continue
+    
+    proximo_numero = maior_id + 1
+    return f"A{proximo_numero:03d}"
+
+def cadastrar_aluno(login, senha, id_aluno, nome, idade, plano):
+    """
+    Cadastra um novo aluno e salva suas informações nos arquivos csv de usuários e perfis.
+    """
+    try:
+        with open('usuarios.csv', mode='a', encoding='utf-8', newline='') as f:
+            escritor = csv.writer(f)
+            escritor.writerow([login, senha, 'Aluno', id_aluno])
+
+        with open('perfis_alunos.csv', mode='a', encoding='utf-8', newline='') as f:
+            escritor = csv.writer(f)
+            escritor.writerow([id_aluno, nome, idade, plano])
+
+        return True
+    except Exception as e:
+        print(f"Erro ao cadastrar novo aluno: {e})")
+        return False

@@ -49,11 +49,11 @@ def menu_aluno(id_aluno, login):
 
 
 def menu_gerente(db_usuarios, db_perfis):
-     """
-     Exibe o menu do gerente.
-     Recebe os bancos de dados por completo.
-     """
-     while True:
+    """
+    Exibe o menu do gerente.
+    Recebe os bancos de dados por completo.
+    """
+    while True:
         print("\n PAINEL DO GERENTE")
         print("[1]: Cadastrar novo aluno")
         print("[2]: Ver lista de alunos")
@@ -63,7 +63,39 @@ def menu_gerente(db_usuarios, db_perfis):
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
-          print("Iniciando cadastro...")
+            print("Iniciando cadastro...")
+            novo_login = input("Crie um Login para esse(a) aluno(a): ")
+            if novo_login in db_usuarios:
+                print("Erro: Esse login já está em uso.")
+                continue
+          
+            id = gerenciador_dados.gerar_proximo_id(db_perfis)
+            print(f"O ID desse aluno é: {id}")
+
+            nova_senha = input("Crie uma Senha para o(a) aluno(a): ")
+            nome = input("Nome completo: ")
+            idade = input("Idade: ")
+            plano = input("Plano (Basico ou Premium): ")
+
+            if gerenciador_dados.cadastrar_aluno(novo_login, nova_senha, id, nome, idade, plano):
+                print("Cadastro realizado com sucesso! ")
+
+                db_usuarios [novo_login] = {
+                  'senha': nova_senha,
+                  'perfil': 'Aluno',
+                  'id_aluno' : id
+                }
+
+                db_perfis[id] = {
+                  'nome': nome,
+                  'idade': idade,
+                  'plano': plano
+                }
+
+                print("Sistema atualizado com sucesso!")
+            else:
+                print("Erro ao gravar dados.")
+            
      
         elif opcao == "2":
           print("\n ALUNOS CADASTRADOS")
