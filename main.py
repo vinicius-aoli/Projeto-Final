@@ -21,15 +21,17 @@ def main():
         perfil, id_aluno = autenticacao.fazer_login(db_usuarios, login, senha)
 
         if perfil == "Gerente":
-            print(f"\nBem-vindo, gerente {login}!") 
+            print(f"\nBem-vindo, gerente!") 
             menus.menu_gerente(db_usuarios, db_perfis)
-            break
-
 
         elif perfil == "Aluno":
-            print(f"\nBem-vindo, aluno {login}!")
+            dados_aluno = db_perfis.get(id_aluno)
+            if dados_aluno:
+                nome_aluno = dados_aluno.get('nome', login)
+            else:
+                nome_aluno = login
+            print(f"\nBem-vindo, aluno {nome_aluno}!")
             menus.menu_aluno(id_aluno, login)
-            break
 
         else:
             print("\n Erro: login ou senha inválidos. Tente novamente.")

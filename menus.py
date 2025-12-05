@@ -1,9 +1,11 @@
 import gerenciador_dados
+import validadores
 
 def menu_aluno(id_aluno, login):
     """
     Exibe o menu do Aluno e mantém ele no loop até que ele escolha sair.
     Recebe o 'id_aluno' para identificar quem está usando o sistema.
+    Escreve nos arquivos csv para registrar entrada ou saída de alunos.
     """
     while True:
         print("\n PAINEL DO ALUNO")
@@ -20,17 +22,17 @@ def menu_aluno(id_aluno, login):
 
         if opcao == "1":
                 if status_atual == 'entrada':
-                    print("Erro: Você já registrou entrada, registre a saída antes de entrar novamente")
+                    print("Erro: Você já registrou entrada, registre a saída antes de entrar novamente.")
                 else:
                     if gerenciador_dados.registrar_presenca(id_aluno, "entrada"):
                         print("Check-in realizado com suceso! Bom treino!")
-                        print("Antes de entrar no sistema novamente, registre a saída")
+                        print("Antes de entrar no sistema novamente, registre a saída.")
                     else:
                         print("Erro ao registrar check-in.")
 
         elif opcao == "2":
             if status_atual == 'saida':
-                print("Erro: Você já registrou saída, registre a entrada antes de sair novamente")
+                print("Erro: Você já registrou saída, registre a entrada antes de sair novamente.")
                      
             else:
                 if gerenciador_dados.registrar_presenca(id_aluno, "saida"):
@@ -52,6 +54,7 @@ def menu_gerente(db_usuarios, db_perfis):
     """
     Exibe o menu do gerente.
     Recebe os bancos de dados por completo.
+    Atualiza os bancos de dados em caso de cadastro novo.
     """
     while True:
         print("\n PAINEL DO GERENTE")
@@ -64,19 +67,53 @@ def menu_gerente(db_usuarios, db_perfis):
 
         if opcao == "1":
             print("Iniciando cadastro...")
-            novo_login = input("Crie um Login para esse(a) aluno(a): ")
-            if novo_login in db_usuarios:
-                print("Erro: Esse login já está em uso.")
-                continue
+            while True:
+                novo_login = input("Crie um Login para esse(a) aluno(a): ")
+                if novo_login in db_usuarios:
+                    print("Erro: Esse login já está em uso. Tente novamente")
+                    continue
+                elif not novo_login.strip():
+                    print("Erro: Login não pode ser vazio.")
+                    continue
+                else:
+                    break
           
             id = gerenciador_dados.gerar_proximo_id(db_perfis)
             print(f"O ID desse aluno é: {id}")
 
-            nova_senha = input("Crie uma Senha para o(a) aluno(a): ")
-            nome = input("Nome completo: ")
-            idade = input("Idade: ")
-            plano = input("Plano (Basico ou Premium): ")
+            while True:
+                nova_senha = input("Crie uma Senha para o(a) aluno(a): ")
+                if len(nova_senha) >= 4:
+                    break
+                print("Erro: A senha deve ter pelo menos 4 caracteres")
 
+            while True:
+                nome_input = input("Nome Completo: ")
+                nome = validadores.validar_nome(nome_input)
+                if nome:
+                    break
+                else:
+                    print("Erro: Nome inválido")
+                    print("Use apenas letras. Hífens e Apóstrofos devem estar entre as letras.")
+            
+            while True:
+                idade_input = input("Idade: ")
+                idade = validadores.validar_idade(idade_input)
+                if idade:
+                    break
+                else:
+                    print("Erro: Idade inválida.")
+                    print("Use apenas números inteiros entre 8 e 100. Exemplo: 26")
+
+            while True:
+                plano_input = input("Plano (Basico/Premium): ")
+                plano = validadores.validar_plano(plano_input)
+                if plano:
+                    break
+                else:
+                    print("Erro: plano inválido. Os planos válidos são: 'Basico' e 'Premium'.")
+
+            print("\nSalvando dados...")
             if gerenciador_dados.cadastrar_aluno(novo_login, nova_senha, id, nome, idade, plano):
                 print("Cadastro realizado com sucesso! ")
 
@@ -94,12 +131,11 @@ def menu_gerente(db_usuarios, db_perfis):
 
                 print("Sistema atualizado com sucesso!")
             else:
-                print("Erro ao gravar dados.")
+                print("Erro ao salvar dados.")
             
      
         elif opcao == "2":
           print("\n ALUNOS CADASTRADOS")
-          
           for id_aluno, dados in db_perfis.items():
                print(f"ID: {id_aluno} | Nome: {dados['nome']} | Idade: {dados['idade']} | Plano: {dados['plano']}")
           print("-------------")

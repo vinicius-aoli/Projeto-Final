@@ -32,7 +32,6 @@ def carregar_usuarios(arquivo_csv):
         print(f"Erro ao ler o arquivo: {e}")
         return {}
     
-    print(f"Sucesso: {len(db_usuarios)} usuários foram carregados no sistema.")
     return db_usuarios
 
 def carregar_perfis(arquivo_csv):
@@ -57,7 +56,6 @@ def carregar_perfis(arquivo_csv):
         print(f"Erro ao ler o arquivo: {e}")
         return {}
     
-    print(f"Sucesso: {len(db_perfis)} perfis de alunos foram carregados no sistema.")
     return db_perfis
 
 def registrar_presenca(id_aluno, tipo_evento):
