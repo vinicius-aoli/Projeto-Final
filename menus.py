@@ -7,6 +7,10 @@ def menu_aluno(id_aluno, login):
     """
     while True:
         print("\n PAINEL DO ALUNO")
+        status_atual = gerenciador_dados.verificar_status_aluno(id_aluno)
+        estado_str = "Ausente" if status_atual == 'entrada' else "Ausente"
+        print(f"Status Atual: {estado_str}")
+        print("---------------------")
         print("[1]: Registrar entrada (Check-in)")
         print("[2]: Registrar saída (Check-out)")
         print("[3]: Ver meu histórico")
@@ -15,17 +19,24 @@ def menu_aluno(id_aluno, login):
         opcao = input("Escolha a opção desejada: ")
 
         if opcao == "1":
-                if gerenciador_dados.registrar_presenca(id_aluno, "entrada"):
-                     print("Check-in realizado com suceso!")
-                     
+                if status_atual == 'entrada':
+                    print("Erro: Você já registrou entrada, registre a saída antes de entrar novamente")
                 else:
-                     print("Erro ao registrar check-in.")
+                    if gerenciador_dados.registrar_presenca(id_aluno, "entrada"):
+                        print("Check-in realizado com suceso! Bom treino!")
+                        print("Antes de entrar no sistema novamente, registre a saída")
+                    else:
+                        print("Erro ao registrar check-in.")
 
         elif opcao == "2":
-            if gerenciador_dados.registrar_presenca(id_aluno, "saida"):
-                print("Check-out realizado com sucesso!")
+            if status_atual == 'saida':
+                print("Erro: Você já registrou saída, registre a entrada antes de sair novamente")
+                     
             else:
-                print("Erro ao registrar check-out.")
+                if gerenciador_dados.registrar_presenca(id_aluno, "saida"):
+                    print("Check-out realizado com sucesso!")
+                else:
+                    print("Erro ao registrar check-out.")
 
         elif opcao == "3":
             print("Gerando histórico do aluno...")
@@ -58,7 +69,7 @@ def menu_gerente(db_usuarios, db_perfis):
           print("\n ALUNOS CADASTRADOS")
           
           for id_aluno, dados in db_perfis.items():
-               print(f"ID: {id_aluno} | Nome: {dados['nome']}")
+               print(f"ID: {id_aluno} | Nome: {dados['nome']} | Idade: {dados['idade']} | Plano: {dados['plano']}")
           print("-------------")
 
         elif opcao == "3":
@@ -67,7 +78,5 @@ def menu_gerente(db_usuarios, db_perfis):
         elif opcao == "0":
             print("Saindo do sistema...")
             break
-        
         else:
             print("Opção inválida.")
-            

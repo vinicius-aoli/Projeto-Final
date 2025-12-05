@@ -23,6 +23,7 @@ def main():
         if perfil == "Gerente":
             print(f"\nBem-vindo, gerente {login}!") 
             menus.menu_gerente(db_usuarios, db_perfis)
+            break
 
 
         elif perfil == "Aluno":

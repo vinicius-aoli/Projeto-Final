@@ -85,3 +85,28 @@ def registrar_presenca(id_aluno, tipo_evento):
         print(f"Erro ao salvar presença no arquivo: {e}")
         return False
     
+def verificar_status_aluno(id_aluno):
+    """
+    Lê o log de presença e verifica qual foi o último evento registrado por um aluno.
+    Retorna: 'entrada', 'saida' ou None (caso não haja nenhum registro)
+    """
+    arquivo = 'log_presenca.csv'
+    ultimo_evento = 'saida'
+
+    try:
+        with open(arquivo, mode='r', encoding='utf-8') as f:
+            leitor = csv.reader(f)
+            next(leitor, None)
+
+            for linha in leitor:
+                if len(linha)>=3 and linha[0] == id_aluno:
+                    ultimo_evento = linha[2]
+
+    except FileNotFoundError:
+        return 'saida'
+    except Exception:
+        return 'saida'
+
+    return ultimo_evento
+
+
