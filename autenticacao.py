@@ -1,6 +1,6 @@
 def fazer_login(db_usuarios, login, senha):
     """
-    Verifica se um login e senha são válidos no nosso banco de dados
+    Verifica se um login e senha são válidos no nosso banco de dados.
     Caso contrário, retorna Inválido
     """
     

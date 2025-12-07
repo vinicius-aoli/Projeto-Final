@@ -37,7 +37,7 @@ def carregar_usuarios(arquivo_csv):
 def carregar_perfis(arquivo_csv):
     """
     Carrega o arquivo de perfis de alunos, retornando um dicionário.
-    A chave é o id do aluno e o valor é um dicionário as informações correspondentes ao perfil.
+    A chave é o id do aluno e o valor é um dicionário as informações correspondentes ao perfil desse aluno.
     """
     db_perfis = {}
 
