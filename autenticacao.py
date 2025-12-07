@@ -17,3 +17,4 @@ def fazer_login(db_usuarios, login, senha):
     else: 
         return "Invalido", None
     
+    
