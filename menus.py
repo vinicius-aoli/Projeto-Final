@@ -1,11 +1,6 @@
 import gerenciador_dados
 import validadores
 import relatorios
-import matplotlib.pyplot as plt
-import numpy as np
-from datetime import datetime, timedelta
-from collections import Counter
-import csv
 
 def menu_aluno(id_aluno, login):
     """'
