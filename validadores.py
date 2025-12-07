@@ -53,8 +53,8 @@ def validar_plano(plano_input):
     """
     Valida se o plano é 'Basico' ou 'Premium' (insensível a maiúsculas).
     Permite que digite 'Básico', com acento, no input.
-    Retorna sempre o plano padronizado: 'Basico' ou 'Premium''
-    Retorna None se for inválido
+    Retorna sempre o plano padronizado: 'Basico' ou 'Premium'.
+    Retorna None se for inválido.
     """
     entrada = plano_input.strip().lower()
 

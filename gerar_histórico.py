@@ -2,10 +2,10 @@ import csv
 import random
 from datetime import datetime, timedelta
 
-def gerar_historico_novembro():
-    print("Gerando histórico de novembro... Aguarde.")
+def gerar_historico_presenca():
+    print("Gerando histórico de presença, aguarde...")
     
-    student_ids = [f"A{i:03d}" for i in range(1, 51)] # Gera A001 até A050
+    student_ids = [f"A{i:03d}" for i in range(1, 51)] 
     start_date = datetime(2025, 11, 1)
     days_in_month = 30
     
@@ -48,4 +48,4 @@ def gerar_historico_novembro():
     print(f"Sucesso! {len(registros)} registros gerados em log_presenca.csv.")
 
 if __name__ == "__main__":
-    gerar_historico_novembro()
+    gerar_historico_presenca()

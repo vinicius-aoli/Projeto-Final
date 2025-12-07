@@ -30,7 +30,7 @@ def main():
                 nome_aluno = dados_aluno.get('nome', login)
             else:
                 nome_aluno = login
-            print(f"\nBem-vindo, aluno {nome_aluno}!")
+            print(f"\nBem-vindo(a), aluno(a) {nome_aluno}!")
             menus.menu_aluno(id_aluno, login)
 
         else:
