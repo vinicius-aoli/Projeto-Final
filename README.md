@@ -76,8 +76,8 @@ Para sair do sistema, é necessário digitar `sair` no input de login.
 * **Login:** `alunoX`
 * **Senha:** `senhaX`
 
-Onde X é o número desse aluno que está contido no ID no modelo: AX (completado com zeros para completar 4 algorismos).
-Exemplo: O aluno de ID A0001 tem o login aluno1 e a senha senha1.
+Onde X é o número desse aluno que está contido no ID no modelo: AX (com zeros para completar 4 caracteres).
+Exemplo: O aluno de ID A001 tem o login aluno1 e a senha senha1.
 
 **Opções contidas no menu:**
 1. **"Registrar entrada (Check-in)"** - Registra a entrada do aluno na academia.
@@ -105,4 +105,5 @@ Nota: O sistema faz uma verificação de qual foi o último evento registrado (c
 3. **"Gerar e acessar relatórios de presença"** - Gera relatórios avançados de frequência, processando os dados de `log_presenca.csv`, no modelo:
     * Exibe no terminal estatísticas detalhadas de cada aluno (frequência, horários médios).
     * Gráfico Visual: Abre uma janela externa (via Matplotlib) exibindo um gráfico de barras com a Distribuição de Frequência dos alunos (com simulação estatística de curva normal).
+       * Nota: Para continuar no loop, rodando o código, é preciso fechar a janela do gráfico visual.
 0. **"Sair (Logout)"** - Sai do painel e retorna a tela de login.
