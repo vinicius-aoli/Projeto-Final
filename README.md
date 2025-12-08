@@ -16,7 +16,7 @@ O sistema conta com dois menus:
 * **Menu do aluno:** Pode registrar sua presença (check-in) e saída (check-out) na academia, além de visualizar seu histórico pessoal de presença detalhado e estatísticas de treino.
 * **Menu do gerente:** Pode cadastrar novos alunos, visualizar a lista de matriculados e gerar um relatório de frequência dos alunos com estatísticas de horário.
 
-O projeto roda via texto no terminal.
+O projeto roda via texto no terminal e já conta com uma base de dados de 50 alunos e um log de presença gerado via código.
 
 ## Pré-requisitos
 Para conseguir rodar o sistema na sua máquina, é necessário ter instalados:
