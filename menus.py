@@ -145,7 +145,7 @@ def menu_gerente(db_usuarios, db_perfis):
             print("\n Processando dados e gerando os gráficos...")
             relatorios.gerar_relatorio_geral(db_perfis)
         elif opcao == "0":
-            print("Saindo do painel de gerente...")
+            print("\nSaindo do painel de gerente...")
             break
         else:
             print("Opção inválida.")
